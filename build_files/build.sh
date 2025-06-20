@@ -24,7 +24,7 @@ dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 
 dnf5 install -y libva-intel-driver
 
-dnf5 config-manager --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo
+dnf5 config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
 
 dnf5 install -y vivaldi-stable \
 				distrobox

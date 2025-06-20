@@ -9,8 +9,34 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
+# Install dnf5 if not installed
+if ! rpm -q dnf5 >/dev/null; then
+    rpm-ostree install dnf5 dnf5-plugins
+fi
+
 # this installs a package from fedora repos
-dnf5 install -y tmux 
+dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+				https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
+				distribution-gpg-keys
+
+rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)
+
+dnf5 --setopt=localpkg_gpgcheck=1 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+
+dnf5 --setopt=localpkg_gpgcheck=1 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+dnf5 config-manager setopt fedora-cisco-openh264.enabled=1
+
+dnf5 swap ffmpeg-free ffmpeg --allowerasing
+
+dnf5 update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+
+dnf5 install -y libva-intel-driver
+
+dnf5 config-manager --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo
+
+dnf5 install -y vivaldi-stable \
+				distrobox
 
 # Use a COPR Example:
 #

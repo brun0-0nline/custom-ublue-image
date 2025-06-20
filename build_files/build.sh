@@ -20,9 +20,9 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 				
 dnf5 config-manager setopt fedora-cisco-openh264.enabled=1
 
-dnf5 swap ffmpeg-free ffmpeg --allowerasing
+dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 
-dnf5 update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 dnf5 install -y libva-intel-driver
 

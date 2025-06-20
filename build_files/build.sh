@@ -22,8 +22,6 @@ dnf5 config-manager setopt fedora-cisco-openh264.enabled=1
 
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 
-dnf5 update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-
 dnf5 install -y libva-intel-driver
 
 dnf5 config-manager --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo

@@ -24,6 +24,9 @@ dnf5 config-manager setopt fedora-cisco-openh264.enabled=1
 
 dnf5 swap -y ffmpeg-free ffmpeg --allowerasing
 
+dnf5 install -y kvantum \
+				distrobox
+
 #dnf5 install -y libva-intel-driver
 #dnf5 config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
 #dnf5 install -y --assumeyes vivaldi-stable
